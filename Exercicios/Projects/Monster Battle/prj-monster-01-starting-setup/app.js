@@ -14,6 +14,8 @@ const app = Vue.createApp({
       combatLog: [],
       damageDealt: 0,
       damageReceived: 0,
+      centerOfButton: 611.9318161010742,
+      difficultyValue: 0,
 
       // Flags
       isSPCooldown: false,
@@ -31,6 +33,36 @@ const app = Vue.createApp({
     },
   },
   methods: {
+    restart() {
+      this.monsterHealth = 100
+      this.playerHealth = 100
+      this.currRounds = 0
+      this.specialAttackRound = 0
+      this.healRound = 0
+      this.combatLog = []
+      this.damageDealt = 0
+      this.damageReceived = 0
+      this.centerOfButton = 611.9318161010742
+      this.difficultyValue = 0
+      this.isSPCooldown = false
+      this.isHealCooldown = false
+    },
+    calculateButtonCenter(event) {
+      const boundries = event.target.getBoundingClientRect()
+      this.centerOfButton = (boundries.left + boundries.right) / 2
+      switch (event.target.id) {
+        case 'facil':
+          this.difficultyValue = 0.5
+          break
+        case 'medio':
+          this.difficultyValue = 1
+          break
+        case 'dificil':
+          this.difficultyValue = 3
+          break
+      }
+      console.log(this.difficultyValue)
+    },
     addLog(who, value, action) {
       switch (action) {
         case 'ATK':
@@ -57,7 +89,10 @@ const app = Vue.createApp({
       this.monsterAttack()
     },
     monsterAttack() {
-      const monsterDamage = getRandomValue(17, 6)
+      const monsterDamage = getRandomValue(
+        15 + this.difficultyValue * 1.5,
+        3 + this.difficultyValue * 1.5
+      )
       this.playerHealth -= monsterDamage
       this.addLog('Monster', monsterDamage, 'ATK')
       this.damageReceived += monsterDamage
@@ -100,6 +135,18 @@ const app = Vue.createApp({
     },
   },
   computed: {
+    difficultyButtons() {
+      if (this.monsterHealth === 100 && this.playerHealth === 100) {
+        return {
+          status: false,
+          class: 'difficulty',
+        }
+      }
+      return {
+        status: true,
+        class: 'disabled',
+      }
+    },
     endOfRound() {
       return !(this.monsterHealth * this.playerHealth)
     },
@@ -135,6 +182,19 @@ const app = Vue.createApp({
         return 'WIN'
       } else if (this.playerHealth <= 0 && this.monsterHealth <= 0) {
         return 'DRAW'
+      }
+    },
+    difficultySelection() {
+      return {
+        position: 'absolute',
+        height: '10px',
+        width: '10px',
+        fontSize: '1.2rem',
+        transform: 'rotate(180deg)',
+        color: '#880017',
+        left: `${this.centerOfButton}px`,
+        top: '135px',
+        transition: '0.3s',
       }
     },
   },

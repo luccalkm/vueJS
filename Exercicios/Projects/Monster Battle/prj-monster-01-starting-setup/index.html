@@ -20,25 +20,58 @@
     <script src="app.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>Monster Slayer</h1>
-    </header>
     <div id="game">
+      <header style="display: flex; justify-content: center">
+        <h1>Monster Slayer</h1>
+        <button
+          @click="restart"
+          style="
+            position: absolute;
+            left: 90%;
+            width: auto;
+            height: auto;
+            background-color: white;
+            color: #880017;
+          "
+        >
+          RESTART
+        </button>
+      </header>
+      <span :style="difficultySelection"
+        ><i class="fa-regular fa-hand-point-up"></i
+      ></span>
       <div
         style="
           width: 50%;
           display: flex;
           justify-content: center;
           margin: 0 auto;
-          position: relative;
         "
       >
-        <span :style="difficultySelection"
-          ><i class="fa-regular fa-hand-point-up"></i
-        ></span>
-        <button class="difficulty">Facil</button>
-        <button class="difficulty">Médio</button>
-        <button class="difficulty">Dificil</button>
+        <button
+          :disabled="difficultyButtons.status"
+          id="facil"
+          @click="calculateButtonCenter($event)"
+          :class="difficultyButtons.class"
+        >
+          Facil
+        </button>
+        <button
+          :disabled="difficultyButtons.status"
+          id="medio"
+          @click="calculateButtonCenter($event)"
+          :class="difficultyButtons.class"
+        >
+          Médio
+        </button>
+        <button
+          :disabled="difficultyButtons.status"
+          id="dificil"
+          @click="calculateButtonCenter($event)"
+          :class="difficultyButtons.class"
+        >
+          Dificil
+        </button>
       </div>
       <section id="monster" class="container">
         <h2>Monster Health</h2>
