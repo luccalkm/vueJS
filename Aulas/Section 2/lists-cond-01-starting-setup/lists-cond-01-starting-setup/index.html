@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Vue Course Goals</h1>
+    </header>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <div
+        style="
+          width: 20%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          margin: 0 auto;
+        "
+      >
+        <input v-model="inputGoal" @keyup.enter="addGoal" type="text" />
+        <button id="add" @click="addGoal">Add Goal</button>
+        <button @click="clearGoals">Clear Goals</button>
+      </div>
+      <p v-if="!goals.length">
+        No goals have been added yet - please start adding some!
+      </p>
+      <ul>
+        <li
+          v-for="goal in goals"
+          style="margin: 10px auto; width: 50%; display: flex; align-items: center; justify-content: space-between;"
+        >
+          <p style="margin: 0 auto">
+            {{goal.goal}}
+          </p>
+          <p style="margin: 0 auto">
+            {{goal.date}}
+          </p>
+          <button
+            :id="goal.goal + goal.id"
+            @click="removeGoal(goal.id)"
+            style="
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              justify-content: center;
+              align-items: center;
+              display: flex;
+            "
+          >
+            X
+          </button>
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>
