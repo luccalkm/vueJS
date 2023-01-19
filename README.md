@@ -1,8 +1,6 @@
 # Curso VueJS
 
-> Aprender Vue surgiu através de uma necessidade no trabalho, mas se tornou uma escolha! Framework divertido e intrigante.
->
-> Divide espaço com React na minha lista de afazeres, sem sombra de dúvidas.
+Aprender Vue surgiu através de uma necessidade no trabalho, mas se tornou uma escolha! Framework **divertido** e **intrigante**.
 
 ```javascript
 const app = Vue.createApp({
@@ -13,3 +11,9 @@ const app = Vue.createApp({
 })
 app.mount('#id')
 ```
+
+## Objetivo:
+
+ Esse repositório tem como finalidade guardar e versionar todos os meus arquivos relativos ao curso de VueJS
+
+ Curso lecionado pelo instrutor ***Maximilian Schwarzmüller.***
